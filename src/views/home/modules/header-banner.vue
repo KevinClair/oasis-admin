@@ -36,6 +36,30 @@ const statisticData = computed<StatisticData[]>(() => [
     value: '12'
   }
 ]);
+
+const greeting = computed(() => {
+  const hour = new Date().getHours();
+  if (hour >= 0 && hour <= 12){
+    return $t('page.home.greetingMorning');
+  } else if (hour > 12 && hour <= 19){
+    return $t('page.home.greetingAfternoon');
+  } else if (hour > 19 && hour <= 24){
+    return $t('page.home.greetingEvening');
+  }
+  return '';
+});
+
+const greetingContent = computed(() => {
+  const hour = new Date().getHours();
+  if (hour >= 0 && hour <= 12){
+    return $t('page.home.greetingMorningContent');
+  } else if (hour > 12 && hour <= 19){
+    return $t('page.home.greetingAfternoonContent');
+  } else if (hour > 19 && hour <= 24){
+    return $t('page.home.greetingEveningContent');
+  }
+  return '';
+});
 </script>
 
 <template>
@@ -48,7 +72,11 @@ const statisticData = computed<StatisticData[]>(() => [
           </div>
           <div class="pl-12px">
             <h3 class="text-18px font-semibold">
-              {{ $t('page.home.greeting', { userName: authStore.userInfo.userName }) }}
+              {{ $t('page.home.greeting', {
+                greeting: greeting,
+                userName: authStore.userInfo.userName,
+                greetingContent: greetingContent
+              }) }}
             </h3>
             <p class="text-#999 leading-30px">{{ $t('page.home.weatherDesc') }}</p>
           </div>

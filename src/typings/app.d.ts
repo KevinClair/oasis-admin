@@ -473,6 +473,12 @@ declare namespace App {
         home: {
           branchDesc: string;
           greeting: string;
+          greetingMorning: string;
+          greetingMorningContent: string;
+          greetingAfternoon: string;
+          greetingAfternoonContent: string;
+          greetingEvening: string;
+          greetingEveningContent: string;
           weatherDesc: string;
           projectCount: string;
           todo: string;
