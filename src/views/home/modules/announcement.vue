@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { fetchGetAnnouncement } from '@/service/api/home';
 
 defineOptions({
@@ -21,16 +21,13 @@ const announcementData = ref<AnnouncementData>({
 onMounted(async () => {
   try {
     const res = await fetchGetAnnouncement();
-    // 如果接口返回 { data: AnnouncementData }
-    if (res && typeof res === 'object') {
-      // 兼容 res.data 或 res 直接为数据
-      const data = (res.data ?? res) as AnnouncementData;
-      announcementData.value = {
-        title: data.title || '',
-        content: data.content || '',
-        createTime: data.createTime || ''
-      };
-    }
+    // 接口返回 { data: AnnouncementData }
+    const data = res.data as AnnouncementData;
+    announcementData.value = {
+      title: data.title,
+      content: data.content,
+      createTime: data.createTime
+    };
   } catch (e) {
     announcementData.value = { title: '', content: '', createTime: '' };
   }
